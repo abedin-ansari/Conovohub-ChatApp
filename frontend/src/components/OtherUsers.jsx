@@ -1,7 +1,26 @@
 import React from "react";
+import OtherUser from "./OtherUser";
 
 const OtherUsers = () => {
-  return <div>oth</div>;
+  return (
+    <div className="overflow-auto h-full">
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+      <OtherUser />
+    </div>
+  );
 };
 
 export default OtherUsers;
