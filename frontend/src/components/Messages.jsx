@@ -1,10 +1,25 @@
 import React from "react";
 import Message from "./Message";
+import useGetMessages from "../CustomHooks/useGetMessages";
+import { useSelector } from "react-redux";
 
 const Messages = () => {
+  useGetMessages();
+  const { messages } = useSelector((store) => store.message);
+  
+  if (!messages || messages.length === 0) {
+    return (
+      <div className="px-2 sm:px-4 flex-1 overflow-auto flex items-center justify-center">
+        <div className="text-white/60 text-center">No messages yet</div>
+      </div>
+    );
+  }
+
   return (
     <div className="px-2 sm:px-4 flex-1 overflow-auto">
-      <Message />
+      {messages.map((message) => {
+        return <Message key={message._id} message={message} />;
+      })}
     </div>
   );
 };

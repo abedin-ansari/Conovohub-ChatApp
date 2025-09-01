@@ -28,7 +28,7 @@ export const sendMessage = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "message sent successfully",
+      newMessage,
     });
     // Socket io
   } catch (error) {

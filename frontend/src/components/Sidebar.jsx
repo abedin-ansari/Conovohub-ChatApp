@@ -1,8 +1,22 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`http://localhost:7000/api/user/logout`);
+      navigate("/login");
+      toast.success(res.data.message);
+    } catch (error) {
+      console.log("Error during logout:", error);
+    }
+  };
+
   return (
     <div className="w-full sm:w-1/3 p-2 sm:p-4 bg-black/30 border-r border-white/20 flex flex-col h-full">
       <form className="flex items-center gap-2 mb-4">
@@ -15,7 +29,7 @@ const Sidebar = () => {
           type="submit"
           className="px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white hover:bg-white/30 transition-colors"
         >
-          <FaSearch className="w-4 h-4" />
+          <FaSearch className="w-6 h-6 cursor-pointer text-black" />
         </button>
       </form>
       <div className="border-b border-white/20 mb-4"></div>
@@ -23,7 +37,10 @@ const Sidebar = () => {
         <OtherUsers />
       </div>
       <div className="mt-4">
-        <button className="w-full px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors cursor-pointer">
+        <button
+          onClick={logoutHandler}
+          className="w-full px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
+        >
           Logout
         </button>
       </div>
