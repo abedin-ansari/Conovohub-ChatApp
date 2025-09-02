@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const Messages = () => {
   useGetMessages();
   const { messages } = useSelector((store) => store.message);
-  
+
   if (!messages || messages.length === 0) {
     return (
       <div className="px-2 sm:px-4 flex-1 overflow-auto flex items-center justify-center">
@@ -17,9 +17,10 @@ const Messages = () => {
 
   return (
     <div className="px-2 sm:px-4 flex-1 overflow-auto">
-      {messages.map((message) => {
-        return <Message key={message._id} message={message} />;
-      })}
+      {messages &&
+        messages.map((message) => {
+          return <Message key={message._id} message={message} />;
+        })}
     </div>
   );
 };

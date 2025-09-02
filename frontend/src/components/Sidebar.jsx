@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setOtherUsers, setAuthUser, setSelectedUser } from "../utils/userSlice";
 
 const Sidebar = () => {
+  const [search, setSearch] = useState("");
+
+  const { otherUsers } = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logoutHandler = async () => {
     try {
       const res = await axios.get(`http://localhost:7000/api/user/logout`);
+      // Clear Redux state
+      dispatch(setAuthUser(null));
+      dispatch(setSelectedUser(null));
+      dispatch(setOtherUsers(null));
       navigate("/login");
       toast.success(res.data.message);
     } catch (error) {
@@ -17,10 +27,46 @@ const Sidebar = () => {
     }
   };
 
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+    if (!search.trim()) {
+      // Clear search - show all users
+      const fetchAllUsers = async () => {
+        try {
+          const res = await axios.get(`http://localhost:7000/api/user/`, {
+            headers: { "Content-type": "application/json" },
+            withCredentials: true,
+          });
+          dispatch(setOtherUsers(res.data));
+        } catch (error) {
+          console.log("Error fetching users:", error);
+        }
+      };
+      fetchAllUsers();
+      return;
+    }
+
+    const filtered = otherUsers?.filter((user) =>
+      user.fullName.toLowerCase().includes(search.toLowerCase())
+    );
+
+    if (filtered && filtered.length > 0) {
+      dispatch(setOtherUsers(filtered));
+    } else {
+      toast.error("No user found");
+    }
+  };
+
   return (
     <div className="w-full sm:w-1/3 p-2 sm:p-4 bg-black/30 border-r border-white/20 flex flex-col h-full">
-      <form className="flex items-center gap-2 mb-4">
+      <form
+        onSubmit={searchSubmitHandler}
+        action=""
+        className="flex items-center gap-2 mb-4"
+      >
         <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           className="flex-1 px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
           type="text"
           placeholder="Search..."
