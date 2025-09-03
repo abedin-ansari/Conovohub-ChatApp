@@ -17,31 +17,37 @@ const SendMessage = () => {
         `http://localhost:7000/api/message/send/${selectedUser?._id}`,
         { message },
         {
+          headers: {
+            "Content-Type": "application/json",
+          },
           withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      dispatch(setMessages([...messages, res.data.newMessage]));
-      setMessage("");
+        });
+      // if (messages && Array.isArray(messages)) {
+      //   dispatch(setMessages([...messages, res?.data?.newMessage]));
+      // } else {
+      //   dispatch(setMessages([res?.data?.newMessage]));
+      // }
+      dispatch(setMessages([...messages, res?.data?.newMessage]))
     } catch (error) {
       console.log(error);
     }
+    setMessage("");
   };
   return (
-    <form onSubmit={submitHandler} className="px-2 sm:px-4 my-3">
+    <form onSubmit={submitHandler} className="px-4 py-4 border-t border-white/10 flex-shrink-0">
       <div className="w-full relative">
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           type="text"
           placeholder="Type your message..."
-          className="border text-sm rounded-lg block w-full p-3 sm:p-4 border-white/40 bg-white/30 text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/60 shadow-lg"
+          className="w-full px-4 py-3 pr-12 glass-effect rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all hover-glow"
         />
         <button
           type="submit"
-          className="absolute flex items-center inset-y-0 end-0 pr-3 sm:pr-4 text-white hover:text-white/80"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 glass-effect rounded-lg text-white hover:bg-white/20 transition-all hover-glow"
         >
-          <IoSend className="w-5 h-5 text-black cursor-pointer" />
+          <IoSend className="w-5 h-5" />
         </button>
       </div>
     </form>

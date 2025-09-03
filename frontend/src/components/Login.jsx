@@ -4,15 +4,19 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../utils/userSlice";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -26,26 +30,34 @@ const Login = () => {
             "Content-type": "application/json",
           },
           withCredentials: true,
-        }
-      );
-
-      if (res.data.success) {
-        toast.success(res.data.message || "Login successful!");
-        dispatch(setAuthUser(res.data.user));
-        navigate("/");
-
-        // Reset form only on success
-        setUser({
-          username: "",
-          password: "",
         });
-      }
+
+      // if (res.data.success) {
+      //   toast.success(res.data.message || "Login successful!");
+      //   dispatch(setAuthUser(res.data.user));
+      //   navigate("/");
+
+      //   // Reset form only on success
+      //   setUser({
+      //     username: "",
+      //     password: "",
+      //   });
+      // }
+      // Github Code
+      navigate("/");
+      console.log(res);
+      dispatch(setAuthUser(res.data));
+      
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Login failed. Please try again."
       );
       console.log(error);
     }
+    setUser({
+      username: "",
+      password: ""
+    })
   };
 
   return (
@@ -56,7 +68,7 @@ const Login = () => {
           <p className="text-white/80">Sign in to your account</p>
         </div>
 
-        <form onSubmit={onSubmitHandler} className="space-y-4">
+        <form onSubmit={onSubmitHandler} action="" className="space-y-4">
           <div>
             <input
               value={user.username}
@@ -66,14 +78,21 @@ const Login = () => {
               className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all"
             />
           </div>
-          <div>
+          <div className="relative">
             <input
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className="w-full px-4 py-3 bg-white/20 border border-white/40 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 pr-12 bg-white/20 border border-white/40 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
 
           <div className="flex items-center justify-between text-sm">

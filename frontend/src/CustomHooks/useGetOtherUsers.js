@@ -9,12 +9,8 @@ const useGetOtherUsers = () => {
   useEffect(() => {
     const fetchOtherUsers = async () => {
       try {
-        const res = await axios.get(`http://localhost:7000/api/user/`, {
-          headers: {
-            "Content-type": "application/json",
-          },
-          withCredentials: true,
-        });
+        axios.defaults.withCredentials = true;
+        const res = await axios.get(`http://localhost:7000/api/user`);
         // Store
         dispatch(setOtherUsers(res.data));
       } catch (error) {
@@ -22,7 +18,7 @@ const useGetOtherUsers = () => {
       }
     };
     fetchOtherUsers();
-  }, [dispatch]);
+  }, []);
 };
 
 export default useGetOtherUsers;

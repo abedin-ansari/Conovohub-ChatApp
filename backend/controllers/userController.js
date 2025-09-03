@@ -77,15 +77,11 @@ export const login = async (req, res) => {
         sameSite: "strict",
       })
       .json({
-        success: true,
-        message: "Login successful!",
-        user: {
-          _id: user._id,
-          username: user.username,
-          fullName: user.fullName,
-          profilePhoto: user.profilePhoto,
-        }
-      });
+        _id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        profilePhoto: user.profilePhoto
+    });
   } catch (error) {
     console.log(error);
   }
@@ -106,14 +102,24 @@ export const logout = (req, res) => {
 
 // Get others
 
+// export const getOtherUsers = async (req, res) => {
+//   try {
+//     const loggedInUserId = req.id;
+//     const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
+//       "-password"
+//     );
+//     return res.status(200).json(otherUsers);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// Github Code
 export const getOtherUsers = async (req, res) => {
   try {
-    const loggedInUserId = req.id;
-    const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
-      "-password"
-    );
-    return res.status(200).json(otherUsers);
+      const loggedInUserId = req.id;
+      const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+      return res.status(200).json(otherUsers);
   } catch (error) {
-    console.log(error);
+      console.log(error);
   }
-};
+}

@@ -2,6 +2,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from "./components/Register";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import io from "socket.io-client";
+import { setSocket } from "./utils/socketSlice";
+import { setOnlineUsers } from "./utils/userSlice";
 
 const router = createBrowserRouter([
   {
@@ -19,11 +24,34 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { authUser } = useSelector((store) => store.user);
+  const { socket } = useSelector((store) => store.socket);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (authUser) {
+      const socketio = io("http://localhost:7000", {
+        query: { userId: authUser._id },
+      });
+      dispatch(setSocket(socketio));
+
+      socketio?.on("getOnlineUsers", (onlineUsers) => {
+        dispatch(setOnlineUsers(onlineUsers));
+      });
+      return () => socketio.close();
+    } else {
+      if (socket) {
+        socket.close();
+        dispatch(setSocket(null));
+      }
+    }
+  }, [authUser]);
+
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className="p-4 h-screen flex items-center justify-center">
+      <RouterProvider router={router}/>
     </div>
   );
-};
+}
 
 export default App;

@@ -1,22 +1,15 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
 
 const conversationModel = mongoose.Schema(
   {
-    participants: [
-      {
+    participants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-      },
-    ],
-    messages: [
-      {
+      }],
+    messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message",
-      },
-    ],
-  },
-  { timestamps: true }
+      }],
+  },{ timestamps: true }
 );
-
 export const Conversation = mongoose.model("Conversation", conversationModel);
