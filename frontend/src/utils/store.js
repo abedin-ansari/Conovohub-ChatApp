@@ -77,6 +77,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: ['socket'], // Exclude socket from persistence
 };
 
 const rootReducer = combineReducers({
@@ -92,7 +93,9 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, 'socket/setSocket'],
+        ignoredPaths: ["socket.socket", "payload.socket", "payload"],
+        ignoredActionPaths: ["payload", "socket"],
       },
     }),
 });
