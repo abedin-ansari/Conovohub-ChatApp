@@ -22,14 +22,9 @@ const SendMessage = () => {
           },
           withCredentials: true,
         });
-      // if (messages && Array.isArray(messages)) {
-      //   dispatch(setMessages([...messages, res?.data?.newMessage]));
-      // } else {
-      //   dispatch(setMessages([res?.data?.newMessage]));
-      // }
       dispatch(setMessages([...messages, res?.data?.newMessage]))
     } catch (error) {
-      console.log(error);
+      // Error handled silently - message will not be sent if error occurs
     }
     setMessage("");
   };

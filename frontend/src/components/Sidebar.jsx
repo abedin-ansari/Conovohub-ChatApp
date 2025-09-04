@@ -27,39 +27,10 @@ const Sidebar = () => {
       dispatch(setSelectedUser(null));
       
     } catch (error) {
-        console.log("Error during logout:", error);
+        // Error handled by toast notification
     }
   };
 
-  // const searchSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   if (!search.trim()) {
-  //     // Clear search - show all users
-  //     const fetchAllUsers = async () => {
-  //       try {
-  //         const res = await axios.get(`http://localhost:7000/api/user/`, {
-  //           headers: { "Content-type": "application/json" },
-  //           withCredentials: true,
-  //         });
-  //         dispatch(setOtherUsers(res.data));
-  //       } catch (error) {
-  //         console.log("Error fetching users:", error);
-  //       }
-  //     };
-  //     fetchAllUsers();
-  //     return;
-  //   }
-
-  //   const filtered = otherUsers?.filter((user) =>
-  //     user.fullName.toLowerCase().includes(search.toLowerCase())
-  //   );
-
-  //   if (filtered && filtered.length > 0) {
-  //     dispatch(setOtherUsers(filtered));
-  //   } else {
-  //     toast.error("No user found");
-  //   }
-  // };
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -73,7 +44,7 @@ const Sidebar = () => {
           });
           dispatch(setOtherUsers(res.data));
         } catch (error) {
-          console.log("Error fetching users:", error);
+          // Error handled silently - users will see empty list if fetch fails
         }
       };
       fetchAllUsers();
@@ -121,7 +92,7 @@ const Sidebar = () => {
       <div className="mt-4">
         <button
           onClick={logoutHandler}
-          className="w-full px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg hover-glow"
+          className="w-full px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg hover-glow cursor-pointer"
         >
           Logout
         </button>

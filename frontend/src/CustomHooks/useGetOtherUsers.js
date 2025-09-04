@@ -14,7 +14,7 @@ const useGetOtherUsers = () => {
         // Store
         dispatch(setOtherUsers(res.data));
       } catch (error) {
-        console.log("Error fetching users:", error);
+        // Error handled silently - users will see empty list if fetch fails
       }
     };
     fetchOtherUsers();

@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from "./components/Register";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
+import LandingPage from "./components/LandingPage";
+import About from "./components/About";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import io from "socket.io-client";
@@ -11,6 +13,10 @@ import { setOnlineUsers } from "./utils/userSlice";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/chat",
     element: <HomePage />,
   },
   {
@@ -20,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
 ]);
 
@@ -48,7 +58,7 @@ const App = () => {
   }, [authUser]);
 
   return (
-    <div className="p-4 h-screen flex items-center justify-center">
+    <div className="h-screen">
       <RouterProvider router={router}/>
     </div>
   );
