@@ -14,10 +14,11 @@ const useGetMessages = () => {
       try {
         axios.defaults.withCredentials = true;
         const res = await axios.get(
-          `http://localhost:7000/api/message/${selectedUser._id}`);
+          `http://localhost:7000/api/message/${selectedUser._id}`
+        );
         dispatch(setMessages(res.data));
       } catch (error) {
-        // Error handled silently - messages will remain empty if fetch fails
+        console.error('Failed to fetch messages:', error);
       }
     };
     fetchMessages();

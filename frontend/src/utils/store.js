@@ -1,62 +1,3 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import userReducer from "./userSlice.js";
-// import messageReducer from "./messageSlice.js";
-// import socketReducer from "./socketSlice.js";
-
-// const store = configureStore({
-//   reducer: {
-//     user: userReducer,
-//     message: messageReducer,
-//     socket: socketReducer,
-//   },
-// });
-
-// export default store;
-
-//Github Code
-// import {combineReducers, configureStore} from "@reduxjs/toolkit";
-// import userReducer from "./userSlice.js";
-// import messageReducer from "./messageSlice.js";
-// import socketReducer from "./socketSlice.js";
-// import {
-//     persistReducer,
-//     FLUSH,
-//     REHYDRATE,
-//     PAUSE,
-//     PERSIST,
-//     PURGE,
-//     REGISTER,
-//   } from 'redux-persist';
-//   import storage from 'redux-persist/lib/storage'
-
-//   const persistConfig = {
-//     key: 'root',
-//     version: 1,
-//     storage,
-//   }
-
-//   const rootReducer = combineReducers({
-//     user:userReducer,
-//     message:messageReducer,
-//     socket:socketReducer
-//  })
-
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-
-// const store = configureStore({
-//     reducer:persistedReducer,
-//     middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-// });
-// export default store;
-
-
-// Chatgpt-
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice.js";
 import messageReducer from "./messageSlice.js";
@@ -77,7 +18,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ['socket'], // Exclude socket from persistence
+  blacklist: ["socket"],
 };
 
 const rootReducer = combineReducers({
@@ -93,15 +34,21 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, 'socket/setSocket'],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          "socket/setSocket",
+        ],
         ignoredPaths: ["socket.socket", "payload.socket", "payload"],
         ignoredActionPaths: ["payload", "socket"],
       },
     }),
 });
 
-// ✅ create persistor
 const persistor = persistStore(store);
 
-// ✅ export both
 export { store, persistor };

@@ -21,15 +21,19 @@ const SendMessage = () => {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        });
-      dispatch(setMessages([...messages, res?.data?.newMessage]))
+        }
+      );
+      dispatch(setMessages([...messages, res?.data?.newMessage]));
     } catch (error) {
-      // Error handled silently - message will not be sent if error occurs
+      console.error('Failed to send message:', error);
     }
     setMessage("");
   };
   return (
-    <form onSubmit={submitHandler} className="px-4 py-4 border-t border-white/10 flex-shrink-0">
+    <form
+      onSubmit={submitHandler}
+      className="px-4 py-4 border-t border-white/10 flex-shrink-0"
+    >
       <div className="w-full relative">
         <input
           value={message}

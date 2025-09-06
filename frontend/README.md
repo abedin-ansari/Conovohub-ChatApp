@@ -63,7 +63,7 @@ A comprehensive real-time chat application built with the MERN stack, featuring 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/ConvoHub.git
+   git clone https://github.com/abedin-ansari/Conovohub-ChatApp.git
    cd ConvoHub
    ```
 
@@ -86,7 +86,7 @@ A comprehensive real-time chat application built with the MERN stack, featuring 
    Create a `.env` file in the backend directory:
 
    ```env
-   PORT=8000
+   PORT=7000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET_KEY=your_jwt_secret_key
    NODE_ENV=development
@@ -308,7 +308,7 @@ ConvoHub/
 
 ```javascript
 // Key configurations in backend
-PORT: 8000 (configurable via environment)
+PORT: 7000 (configurable via environment)
 CORS: Enabled for frontend origin
 Socket.io: Real-time communication setup
 JWT: Secure token-based authentication

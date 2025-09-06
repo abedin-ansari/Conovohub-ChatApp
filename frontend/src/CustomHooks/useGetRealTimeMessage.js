@@ -7,15 +7,10 @@ const useGetRealTimeMessage = () => {
   const { messages } = useSelector((store) => store.message);
   const dispatch = useDispatch();
   useEffect(() => {
-    // if (!socket) return;
-    // const handleNewMessage = (newMessage) => {
-    //   const current = Array.isArray(messages) ? messages : [];
-    //   dispatch(setMessages([...current, newMessage]));
-    // };
-    socket?.on("newMessage", (newMessage)=>{
+    socket?.on("newMessage", (newMessage) => {
       dispatch(setMessages([...messages, newMessage]));
     });
     return () => socket?.off("newMessage");
-  },[setMessages, messages]);
+  }, [setMessages, messages]);
 };
 export default useGetRealTimeMessage;

@@ -37,11 +37,10 @@ export const register = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    console.error('Registration error:', error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
-// Login code-
 
 export const login = async (req, res) => {
   try {
@@ -80,14 +79,13 @@ export const login = async (req, res) => {
         _id: user._id,
         username: user.username,
         fullName: user.fullName,
-        profilePhoto: user.profilePhoto
-    });
+        profilePhoto: user.profilePhoto,
+      });
   } catch (error) {
+    console.error('Login error:', error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
-// Logout code -
 
 export const logout = (req, res) => {
   try {
@@ -96,16 +94,20 @@ export const logout = (req, res) => {
       success: true,
     });
   } catch (error) {
+    console.error('Logout error:', error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
 export const getOtherUsers = async (req, res) => {
   try {
-      const loggedInUserId = req.id;
-      const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
-      return res.status(200).json(otherUsers);
+    const loggedInUserId = req.id;
+    const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
+      "-password"
+    );
+    return res.status(200).json(otherUsers);
   } catch (error) {
-      return res.status(500).json({ message: "Internal server error" });
+    console.error('Get other users error:', error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-}
+};

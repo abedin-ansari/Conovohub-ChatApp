@@ -5,8 +5,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setOtherUsers, setAuthUser, setSelectedUser } from "../utils/userSlice";
-import { setMessages } from '../utils/messageSlice';
+import {
+  setOtherUsers,
+  setAuthUser,
+  setSelectedUser,
+} from "../utils/userSlice";
+import { setMessages } from "../utils/messageSlice";
 
 const Sidebar = () => {
   const [search, setSearch] = useState("");
@@ -25,17 +29,16 @@ const Sidebar = () => {
       dispatch(setMessages(null));
       dispatch(setOtherUsers(null));
       dispatch(setSelectedUser(null));
-      
     } catch (error) {
-        // Error handled by toast notification
+      console.error('Failed to logout:', error);
+      toast.error('Logout failed. Please try again.');
     }
   };
-
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (!search.trim()) {
-      // Clear search - reload all users
+      // reload all users
       const fetchAllUsers = async () => {
         try {
           const res = await axios.get(`http://localhost:7000/api/user/`, {
@@ -44,7 +47,7 @@ const Sidebar = () => {
           });
           dispatch(setOtherUsers(res.data));
         } catch (error) {
-          // Error handled silently - users will see empty list if fetch fails
+          console.error('Failed to fetch users during search:', error);
         }
       };
       fetchAllUsers();
@@ -82,13 +85,13 @@ const Sidebar = () => {
           <FaSearch className="w-5 h-5" />
         </button>
       </form>
-      
+
       <div className="border-b border-white/20 mb-4"></div>
-      
+
       <div className="flex-1 overflow-hidden min-h-0">
         <OtherUsers />
       </div>
-      
+
       <div className="mt-4">
         <button
           onClick={logoutHandler}
@@ -101,4 +104,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar
+export default Sidebar;
