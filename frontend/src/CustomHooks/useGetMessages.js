@@ -14,7 +14,7 @@ const useGetMessages = () => {
       try {
         axios.defaults.withCredentials = true;
         const res = await axios.get(
-          `http://localhost:7000/api/message/${selectedUser._id}`
+          `https://conovohub-chatapp.onrender.com/api/message/${selectedUser._id}`
         );
         dispatch(setMessages(res.data));
       } catch (error) {

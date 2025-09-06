@@ -40,7 +40,7 @@ const App = () => {
 
   useEffect(() => {
     if (authUser) {
-      const socketio = io("http://localhost:7000", {
+      const socketio = io("https://conovohub-chatapp.onrender.com", {
         query: { userId: authUser._id },
       });
       dispatch(setSocket(socketio));

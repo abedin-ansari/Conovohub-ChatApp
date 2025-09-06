@@ -67,59 +67,45 @@ A comprehensive real-time chat application built with the MERN stack, featuring 
    cd ConvoHub
    ```
 
-2. **Install Backend Dependencies**
+2. **Install Dependencies**
 
    ```bash
-   cd backend
    npm install
    ```
 
-3. **Install Frontend Dependencies**
+3. **Set up environment variables**
 
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-4. **Set up environment variables**
-
-   Create a `.env` file in the backend directory:
+   Create a `.env` file in the root directory:
 
    ```env
    PORT=7000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET_KEY=your_jwt_secret_key
-   NODE_ENV=development
+   NODE_ENV=production
    ```
 
-5. **Start the Backend Server**
+4. **Start the Application**
 
    ```bash
-   cd backend
+   # Development
    npm run dev
+   
+   # Production
+   npm start
    ```
 
-6. **Start the Frontend Development Server**
-
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-7. **Open in your browser**
-   Navigate to: `http://localhost:5173`
+5. **Access the Application**
+   - **Live Demo**: [https://conovohub-chatapp.onrender.com](https://conovohub-chatapp.onrender.com)
+   - **Local Development**: `http://localhost:7000`
 
 ### **Build for Production**
 
 ```bash
-# Backend
-cd backend
-npm start
-
-# Frontend
-cd frontend
+# Build both frontend and backend
 npm run build
-npm run preview
+
+# Start production server
+npm start
 ```
 
 ## 🛠️ **Tech Stack**
@@ -177,9 +163,7 @@ ConvoHub/
 │   │   └── userRoute.js          # User-related endpoints
 │   ├── socket/               # Socket.io configuration
 │   │   └── socket.js             # Real-time event handling
-│   ├── .env                  # Environment variables
-│   ├── package.json          # Backend dependencies
-│   └── index.js              # Server entry point
+│   └── server.js             # Server entry point
 ├── frontend/                 # React/Vite frontend
 │   ├── public/               # Static assets
 │   │   ├── ConvoHubBG.png    # Background image
@@ -211,9 +195,10 @@ ConvoHub/
 │   │   ├── main.jsx          # Application entry point
 │   │   └── index.css         # Global styles and Tailwind imports
 │   ├── package.json          # Frontend dependencies
-│   ├── vite.config.js        # Vite configuration
-│   └── tailwind.config.js    # Tailwind CSS configuration
-└── README.md                 # Project documentation
+│   ├── .env                  # Environment variables (root level)
+├── .gitignore            # Git ignore patterns
+├── package.json          # Project dependencies and scripts
+└── README.md             # Project documentation
 ```
 
 ## 🔐 **Authentication Flow**
@@ -327,20 +312,23 @@ Tailwind: Utility-first CSS framework
 
 ## 🚀 **Deployment**
 
-### **Backend Deployment**
+### **Production Deployment**
 
 ```bash
-# Production build
-npm install --production
+# Install dependencies and build
+npm run build
+
+# Start production server
 npm start
 
 # Environment variables required:
 # - MONGO_URI
 # - JWT_SECRET_KEY
 # - NODE_ENV=production
+# - PORT=8000
 ```
 
-### **Frontend Deployment**
+### **Development Setup**
 
 ```bash
 # Build for production
@@ -352,26 +340,28 @@ npm run preview
 # Deploy to platforms like Vercel, Netlify, or custom server
 ```
 
+### **Live Deployment**
+
+🌐 **Live Application**: [https://conovohub-chatapp.onrender.com](https://conovohub-chatapp.onrender.com)
+
+**Deployment Details**:
+- **Platform**: Render (Full-stack deployment)
+- **Backend & Frontend**: Integrated deployment
+- **Database**: MongoDB Atlas
+- **Real-time**: Socket.io with CORS configured for production
+
 ### **Deployment Platforms**
 
-- **Backend**: Railway, Render, Heroku, DigitalOcean
-- **Frontend**: Vercel, GitHub Pages
-- **Database**: MongoDB Atlas (recommended for production)
+- **Current**: Render (recommended for MERN stack)
+- **Alternatives**: Railway, Heroku, DigitalOcean
+- **Database**: MongoDB Atlas (production-ready)
 
 ## 📋 **Available Scripts**
 
-### **Backend Scripts**
-
 - `npm start` - Start production server
 - `npm run dev` - Start development server with nodemon
-- `npm test` - Run backend tests (if configured)
-
-### **Frontend Scripts**
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint for code quality
+- `npm run build` - Build frontend and install all dependencies
+- `npm test` - Run tests (if configured)
 
 ## 🧪 **Testing**
 

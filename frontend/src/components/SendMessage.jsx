@@ -14,7 +14,7 @@ const SendMessage = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:7000/api/message/send/${selectedUser?._id}`,
+        `https://conovohub-chatapp.onrender.com/api/message/send/${selectedUser?._id}`,
         { message },
         {
           headers: {

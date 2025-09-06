@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`http://localhost:7000/api/user/logout`);
+      const res = await axios.get(`https://conovohub-chatapp.onrender.com/api/user/logout`);
       navigate("/login");
 
       toast.success(res.data.message);
@@ -41,7 +41,7 @@ const Sidebar = () => {
       // reload all users
       const fetchAllUsers = async () => {
         try {
-          const res = await axios.get(`http://localhost:7000/api/user/`, {
+          const res = await axios.get(`https://conovohub-chatapp.onrender.com/api/user/`, {
             headers: { "Content-type": "application/json" },
             withCredentials: true,
           });

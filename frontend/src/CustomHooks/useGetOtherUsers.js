@@ -10,7 +10,7 @@ const useGetOtherUsers = () => {
     const fetchOtherUsers = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const res = await axios.get(`http://localhost:7000/api/user`);
+        const res = await axios.get(`https://conovohub-chatapp.onrender.com/api/user`);
         // Store
         dispatch(setOtherUsers(res.data));
       } catch (error) {
