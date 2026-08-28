@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../utils/userSlice";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -28,14 +28,14 @@ const Login = () => {
             "Content-type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
 
       navigate("/chat");
       dispatch(setAuthUser(res.data));
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Login failed. Please try again."
+        error.response?.data?.message || "Login failed. Please try again.",
       );
     }
     setUser({
@@ -46,7 +46,15 @@ const Login = () => {
 
   return (
     <div className="app-background flex items-center justify-center">
-      <div className="w-full max-w-sm sm:max-w-md lg:max-w-md xl:max-w-lg bg-black/40 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/30 p-6 sm:p-8 lg:p-10 xl:p-20 mx-4">
+      <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-md xl:max-w-lg bg-black/40 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/30 p-6 sm:p-8 lg:p-10 xl:p-20 mx-4">
+        <button
+          onClick={() => navigate("/")}
+          aria-label="Back to home"
+          title="Back to home"
+          className="absolute left-4 top-4 text-white text-xl cursor-pointer"
+        >
+          <FaArrowLeft />
+        </button>
         <div className="text-center mb-6 lg:mb-8">
           <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-2">
             Welcome Back

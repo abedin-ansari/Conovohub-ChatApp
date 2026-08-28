@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -29,7 +29,7 @@ const Register = () => {
             "Content-type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
 
       if (res.data.success) {
@@ -48,14 +48,22 @@ const Register = () => {
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
-          "Registration failed. Please try again."
+          "Registration failed. Please try again.",
       );
     }
   };
 
   return (
     <div className="app-background flex items-center justify-center">
-      <div className="w-full max-w-sm sm:max-w-md lg:max-w-md xl:max-w-lg bg-black/40 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/30 p-6 sm:p-8 lg:p-10 xl:p-20 mx-4">
+      <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-md xl:max-w-lg bg-black/40 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/30 p-6 sm:p-8 lg:p-10 xl:p-20 mx-4">
+        <button
+          onClick={() => navigate("/")}
+          aria-label="Back to home"
+          title="Back to home"
+          className="absolute left-4 top-4 text-white text-xl cursor-pointer"
+        >
+          <FaArrowLeft />
+        </button>
         <div className="text-center mb-6 lg:mb-8">
           <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-2">
             Create Account

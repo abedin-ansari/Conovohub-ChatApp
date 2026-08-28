@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaHome, FaSearch } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -21,7 +21,9 @@ const Sidebar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`https://conovohub-chatapp.onrender.com/api/user/logout`);
+      const res = await axios.get(
+        `https://conovohub-chatapp.onrender.com/api/user/logout`,
+      );
       navigate("/login");
 
       toast.success(res.data.message);
@@ -30,8 +32,8 @@ const Sidebar = () => {
       dispatch(setOtherUsers(null));
       dispatch(setSelectedUser(null));
     } catch (error) {
-      console.error('Failed to logout:', error);
-      toast.error('Logout failed. Please try again.');
+      console.error("Failed to logout:", error);
+      toast.error("Logout failed. Please try again.");
     }
   };
 
@@ -41,13 +43,16 @@ const Sidebar = () => {
       // reload all users
       const fetchAllUsers = async () => {
         try {
-          const res = await axios.get(`https://conovohub-chatapp.onrender.com/api/user/`, {
-            headers: { "Content-type": "application/json" },
-            withCredentials: true,
-          });
+          const res = await axios.get(
+            `https://conovohub-chatapp.onrender.com/api/user/`,
+            {
+              headers: { "Content-type": "application/json" },
+              withCredentials: true,
+            },
+          );
           dispatch(setOtherUsers(res.data));
         } catch (error) {
-          console.error('Failed to fetch users during search:', error);
+          console.error("Failed to fetch users during search:", error);
         }
       };
       fetchAllUsers();
@@ -55,7 +60,7 @@ const Sidebar = () => {
     }
 
     const filtered = otherUsers?.filter((user) =>
-      user.fullName.toLowerCase().includes(search.toLowerCase())
+      user.fullName.toLowerCase().includes(search.toLowerCase()),
     );
 
     if (filtered && filtered.length > 0) {
@@ -67,6 +72,14 @@ const Sidebar = () => {
 
   return (
     <div className="w-full sm:w-1/3 p-4 glass-dark border-r border-white/20 flex flex-col h-full mobile-sidebar">
+      <button
+        onClick={() => navigate("/")}
+        aria-label="Home"
+        title="Home"
+        className="self-end mb-2 text-white text-xl cursor-pointer"
+      >
+        <FaHome />
+      </button>
       <form
         onSubmit={searchSubmitHandler}
         className="flex items-center gap-2 mb-4"
