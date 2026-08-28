@@ -103,10 +103,14 @@ body {
   .mobile-sidebar {
     width: 100% !important;
     height: auto !important;
-    max-height: 65vh !important;
+    max-height: 100vh !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     flex-shrink: 0 !important;
+  }
+
+  .chat-main-container:has(.border-purple-400) .mobile-sidebar {
+    display: none !important;
   }
 
   .mobile-messages {
