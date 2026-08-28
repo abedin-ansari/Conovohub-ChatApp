@@ -4,6 +4,7 @@ import SendMessage from './SendMessage'
 import Messages from './Messages';
 import { useSelector,useDispatch } from "react-redux";
 import { setSelectedUser } from '../utils/userSlice';
+import { IoArrowBack } from 'react-icons/io5';
 
 const MessageContainer = () => {
     const { selectedUser, authUser, onlineUsers } = useSelector(store => store.user);
@@ -18,6 +19,9 @@ const isOnline = onlineUsers?.includes(selectedUser?._id);
                 selectedUser !== null ? (
                     <div className='md:min-w-[650px] lg:min-w-[750px] xl:min-w-[850px] flex flex-col h-full min-h-0'>
                         <div className='flex gap-2 items-center bg-zinc-800 text-white px-4 py-2 mb-2'>
+                            <button onClick={() => dispatch(setSelectedUser(null))} aria-label='Back to users' title='Back to users' className='p-2 cursor-pointer'>
+                                <IoArrowBack className='w-5 h-5' />
+                            </button>
                             <div className={`avatar ${isOnline ? 'online' : ''}`}>
                                 <div className='w-12 rounded-full'>
                                     <img src={selectedUser?.profilePhoto} alt="user-profile" />
