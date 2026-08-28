@@ -22,8 +22,8 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // profilePhoto
-    const maleProfilePhoto = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const femaleProfilePhoto = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const maleProfilePhoto = `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(username)}-boy`;
+    const femaleProfilePhoto = `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(username)}-girl`;
 
     await User.create({
       fullName,
@@ -37,7 +37,7 @@ export const register = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error("Registration error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -82,7 +82,7 @@ export const login = async (req, res) => {
         profilePhoto: user.profilePhoto,
       });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -94,7 +94,7 @@ export const logout = (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error('Logout error:', error);
+    console.error("Logout error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -103,11 +103,11 @@ export const getOtherUsers = async (req, res) => {
   try {
     const loggedInUserId = req.id;
     const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
-      "-password"
+      "-password",
     );
     return res.status(200).json(otherUsers);
   } catch (error) {
-    console.error('Get other users error:', error);
+    console.error("Get other users error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
