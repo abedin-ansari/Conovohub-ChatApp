@@ -21,11 +21,11 @@ const SendMessage = () => {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
       dispatch(addMessage(res?.data?.newMessage));
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
     }
     setMessage("");
   };

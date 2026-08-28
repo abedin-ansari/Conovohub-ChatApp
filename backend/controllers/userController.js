@@ -2,9 +2,10 @@ import bcrypt from "bcryptjs";
 import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
-const getProfilePhoto = (user) => user.profilePhoto?.includes("avatar.iran.liara.run")
-  ? `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(user.username)}-${user.gender}`
-  : user.profilePhoto;
+const getProfilePhoto = (user) =>
+  user.profilePhoto?.includes("avatar.iran.liara.run")
+    ? `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(user.username)}-${user.gender}`
+    : user.profilePhoto;
 
 export const register = async (req, res) => {
   try {
@@ -109,10 +110,12 @@ export const getOtherUsers = async (req, res) => {
     const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
       "-password",
     );
-    return res.status(200).json(otherUsers.map((user) => ({
-      ...user.toObject(),
-      profilePhoto: getProfilePhoto(user),
-    })));
+    return res.status(200).json(
+      otherUsers.map((user) => ({
+        ...user.toObject(),
+        profilePhoto: getProfilePhoto(user),
+      })),
+    );
   } catch (error) {
     console.error("Get other users error:", error);
     return res.status(500).json({ message: "Internal server error" });
