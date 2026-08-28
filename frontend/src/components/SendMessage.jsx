@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoSend } from "react-icons/io5";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setMessages } from "../utils/messageSlice";
+import { addMessage } from "../utils/messageSlice";
 
 const SendMessage = () => {
   const [message, setMessage] = useState("");
@@ -23,7 +23,7 @@ const SendMessage = () => {
           withCredentials: true,
         }
       );
-      dispatch(setMessages([...messages, res?.data?.newMessage]));
+      dispatch(addMessage(res?.data?.newMessage));
     } catch (error) {
       console.error('Failed to send message:', error);
     }
